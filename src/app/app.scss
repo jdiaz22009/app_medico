@@ -1,0 +1,282 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+//Estilos generales para las alertas
+.classConfirmacion {
+    .alert-button-group{
+        background-color:map-get($colors, sinergia2 );
+        justify-content: space-around;
+        padding: 0 0 0 0;
+    }
+    .alert-button .alert-button-md .alert-button-default .alert-button-default-md{
+        width: 50%;
+        padding-left: 0%;
+        padding-right: 0%;
+    }
+
+    .alert-wrapper {
+        border-radius: 20px;
+        background-color:map-get($colors, backgroud-alert );
+        
+      }
+  
+      .alert-message {
+          font-size: 16px;
+          color:map-get($colors, texto );
+          text-align: center;
+      }
+  
+      .alert-head{
+          background-color:map-get($colors, sinergia2 );
+      }
+  
+      .alert-title {
+          font-size: 16px;
+          color: rgb(255, 255, 255);
+          font-weight: bold;
+          text-align: center;    
+      }
+  
+      .alert-button {
+          background-color:map-get($colors, sinergia2 );
+          //border-radius: 20px;
+          text-transform: capitalize;
+          padding-left: 20px;
+          padding-right: 20px;
+          //margin-bottom: 10px;
+          color: white;
+      }
+}
+/* .customAlert {
+    .alert-wrapper {
+      border-radius: 20px;
+      background-color:map-get($colors, backgroud-alert );
+      
+    }
+
+    .alert-message {
+        font-size: 16px;
+        color:map-get($colors, texto );
+        text-align: center;
+    }
+
+    .alert-head{
+        background-color:map-get($colors, sinergia2 );
+    }
+
+    .alert-title {
+        font-size: 16px;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        text-align: center;    
+    }
+
+    .alert-button {
+        background-color:map-get($colors, sinergia2 );
+        //border-radius: 20px;
+        text-transform: capitalize;
+        padding-left: 20px;
+        padding-right: 20px;
+        //margin-bottom: 10px;
+        color: white;
+    }
+  } */
+
+  .customAlertJustify {
+
+    .alert-message {
+        text-align: justify !important;
+    }
+
+    .alert-title {
+        text-align: justify !important;
+    }
+  }
+
+  .customAlertAndroid {
+    .alert-button {
+        border-radius: 20px;
+        margin-bottom: 10px;
+      }
+
+      .alert-button-group {
+        justify-content: center !important;
+      }
+    }
+
+div.rounded {
+    ion-item{
+        background:rgb(255, 255, 255);
+        -moz-border-radius: 30px;
+        -webkit-border-radius: 30px;
+        padding-left: 16px;
+        padding-right: 16px;
+        border-style: solid;
+        border-color: rgb(173, 173, 173);
+        border-width: thin;
+        margin-top: 0px;
+        height: 10px;
+    }
+
+    ion-label{
+        margin-bottom: 5px;
+        margin-top: 5px;
+        text-align: left;
+        font-size: 15px;
+    }
+
+    ion-select {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+.toolbar-title-md{
+    text-align: center;
+}
+
+@font-face {
+    font-family: 'AppFont';
+    src: url('../assets/fonts/UNVR55W.TTF') format("truetype");
+}
+
+ion-app {
+    font-family: 'AppFont' !important;
+}
+
+.div_principal{
+    display: flex; 
+    flex-direction: column; 
+    height: 100%;
+}
+
+.fondo_burbuja{
+    display: flex; 
+    justify-content:center;  
+    order: 2; 
+    background-color: #cccccc;  
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-image: url('../../assets/img/fondo_2.jpg'); 
+    height: 100%;
+}
+
+.img-icono{
+    position: absolute; 
+    margin-top: -30%; 
+    margin-left: 31%; 
+    //width: 100%; 
+}
+
+.img-login{
+    border: solid rgb(71,10,104) 1px;
+    border-radius: 15px;
+}
+
+.img-consulta{
+    border: solid rgb(103,30,117) 1px;
+    border-radius: 15px;
+}
+
+.img-contactos{
+    border: solid rgb(0,129,109) 1px;
+    border-radius: 15px;
+}
+
+.img-solicitud{
+    border: solid rgb(71,10,104) 1px;
+    border-radius: 15px;
+}
+
+.alert-head{
+    background-color: rgb(71,10,104);
+    color: white !important;
+}
+
+.alert-message{
+    background-color: rgb(190,152,190);
+    color: white !important;
+}
+
+.alert-button-group{
+    background-color: rgb(71,10,104);
+    color: white !important;
+    justify-content: space-around !important;
+    padding: 0 0 0 0 !important;
+}
+
+.alert-ios .alert-button.activated {
+    background-color: rgb(71,10,104);
+}
+
+.alert-head{
+    background-color: rgb(71,10,104);
+    color: white !important;
+}
+.alert-md, .alert-button, .alert-button-ios, .alert-ios{
+    color: white !important;
+}
+
+.alert-wrapper{
+    border-radius: 20px !important;
+}
+
+.alert-radio-group, .alert-md .alert-checkbox-group{
+    background-color: rgb(190,152,190);
+    border: 0;
+}
+.alert-md, .alert-radio-label{
+    color: white !important;
+}
+.alert-md, .alert-button{
+    color: white !important;
+}
+/* .error-alert{
+    .alert-button-group{
+        background-color: rgb(71,10,104);
+        color: white !important;
+        justify-content: space-around !important;
+        padding: 0 0 0 0 !important;
+    }
+    .alert-head{
+        background-color: rgb(71,10,104);
+        color: white !important;
+    }
+    .alert-md .alert-button{
+        color: white !important;
+    }
+} */
+
+.toolbar-background-md{
+    background-color: rgb(71,10,104) !important;
+    color: white !important;
+}
+.bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default{
+    color: white !important;
+}
+.toolbar-title-md{
+    color: white !important;
+}
+
+ion-navbar, .menu {
+    height: 70px;
+}
+
+.menu-inner{
+    width: 60% !important;
+}

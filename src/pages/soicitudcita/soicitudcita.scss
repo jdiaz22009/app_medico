@@ -1,0 +1,60 @@
+page-soicitudcita {
+
+    .text{
+        font-size: 8pt;
+    }
+
+    ion-navbar, .menu {
+        height: 100px;
+    }
+}
+
+ion-step-header .ionic-step-header-icon-active{
+    background-color: rgb(71,10,104) !important;
+    color: white !important;
+    margin-right: 0px !important;
+}
+
+ion-step-header .ionic-step-header-text-container{
+    .ionic-step-header-label{
+        
+    }   
+    .ionic-step-header-label-active{
+        color: white !important;
+        background-color: rgb(190,152,190) !important;
+        border-top-right-radius:15px;
+        border-bottom-right-radius:15px;
+    }    
+    width: 70%;
+}
+
+.button-md-light {
+    color: white !important;
+    background-color: rgb(187,188,188) !important;
+}
+
+.div-bienvenido{
+    order: 1;
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-self: center;
+    width:100%;
+    background-image: url('../../assets/img/fondo_5.jpg');
+    background-repeat: no-repeat;
+    height: 20%;  
+    background-size: cover; 
+    
+}
+
+
+.p-bienvenido{
+    align-self: center; 
+    color: rgb(103, 30, 117);
+    font-size: 17px;
+    text-transform: capitalize !important; 
+}
+
+.txt-terminos{
+    text-align: justify;
+} 

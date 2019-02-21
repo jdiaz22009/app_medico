@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-navbar color="sinergia" no-border>
+    <ion-title>Iniciar sesión</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content color="primary" style="height: 100%; padding: 0 !important; ">
+  <div class="div_principal">
+
+    <div style="order: 1">
+      <img src="../../assets/img/fondo_1.jpg" />
+      <div class="img-icono">
+        <img id="img-login" class="img-login" src="../../assets/img/img_inicio_sesion.png" />
+      </div>
+    </div>
+
+    <div class="fondo_burbuja">
+      <div style="width: 70%; margin-top: 10%">
+        <form [formGroup]="formLogin" (ngSubmit)="onLogin()">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <div class="rounded">
+                  <ion-item>
+                    <button ion-button clear item-start style="height:32px;">
+                      <img src="../../assets/img/iconos/iconos-pequeños-inicio-u.png" />
+                    </button>
+                    <ion-label float for="user" class="salto">Tipo de identificación</ion-label>
+                    <ion-select color="texto" style="font-size:12px;" placeholder="{{MSG.TEXT_USUARIO}}" id="tipo"
+                      formControlName="tipoId">
+                      <ion-option color="texto" style="font-size:12px;" *ngFor="let key of tipoDoc;" value="{{ key.cod_tipo_identi }}">{{
+                        key.des_identificacion }}</ion-option>
+                    </ion-select>
+                  </ion-item>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item *ngIf="formLogin.get('tipoId').errors && formLogin.get('tipoId').dirty">
+                  <p text-wrap color="danger" ion-text *ngIf="formLogin.get('tipoId').hasError('required')">{{MSG.MSG_VALIDACION_OBLIGATORIO}}</p>
+                  <p text-wrap color="danger" ion-text *ngIf="formLogin.get('tipoId').hasError('minlength')">{{MSG.VALIDACION_CAMPO_USUARIO_MIN_CARACTER}}</p>
+                  <p text-wrap color="danger" ion-text *ngIf="formLogin.get('tipoId').hasError('pattern')">{{MSG.VALIDACION_CAMPO_ALFANUMERICO}}</p>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div class="rounded">
+                  <ion-item>
+                    <button ion-button clear item-start style="height:32px;">
+                      <img src="../../assets/img/iconos/iconos-pequeños-inicio-c.png" />
+                    </button>
+                    <ion-input color="texto" style="font-size:12px;" type="tetx" placeholder="{{MSG.TEXT_CONTRASENA}}"
+                      formControlName="nroId" required></ion-input>
+                  </ion-item>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item *ngIf="formLogin.get('nroId').errors && formLogin.get('nroId').dirty">
+                  <p text-wrap color="danger" ion-text *ngIf="formLogin.get('nroId').hasError('required')">{{MSG.MSG_VALIDACION_OBLIGATORIO}}</p>
+                  <p text-wrap color="danger" ion-text *ngIf="formLogin.get('nroId').hasError('minlength')">{{MSG.VALIDACION_CAMPO_USUARIO_MIN_CARACTER}}</p>
+                  <p text-wrap color="danger" ion-text *ngIf="formLogin.get('nroId').hasError('pattern')">{{MSG.VALIDACION_CAMPO_ALFANUMERICO}}</p>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div class="rounded">
+                  <ion-item>
+                    <button ion-button clear item-start style="height:32px;">
+                      <img src="../../assets/img/iconos/iconos-pequeños-inicio-03.png" />
+                    </button>
+                    <ion-datetime color="texto" style="font-size:12px;" placeholder="{{MSG.DATE_FECHA}}" displayFormat="DD/MM/YYYY"
+                      pickerFormat="DD-MMMM-YYYY" cancelText="Cancelar" doneText="Aceptar" #cmbfecha (change)="validate_fecha(cmbfecha.value);"
+                      formControlName="fechaNacimiento" id="Edad" value=""></ion-datetime>
+                  </ion-item>
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <div id="divCaptcha"></div>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <button ion-button type="submit" full round color="sinergia" [disabled]="formLogin.invalid">{{MSG.BTN_CONTINUAR}}</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <footer></footer>
+</ion-footer>

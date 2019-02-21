@@ -1,0 +1,131 @@
+<ion-header>
+  <div class="menu">
+    <ion-navbar color="sinergia">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Solicitud de citas</ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only (click)="goToHome()">
+          <ion-icon name="home"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </div>
+</ion-header>
+
+<ion-content style="margin: 0px; padding: 0px;">
+  <div class="div_principal">
+    <div class="div-bienvenido">
+      <div style="align-self: center;"><img src="../../assets/img/img_inicio_sesion-2.png" width="90%" /></div>
+      <div style="align-self: center; " class="p-bienvenido"><b>Bienvenido </b> {{nombreCorto|lowercase}}  </div>     
+    </div>
+    <div style="order: 2; display: flex; flex-direction: column; background-color: #cccccc;  background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url('../../assets/img/fondo_2.jpg'); height: 100%;">
+      <ion-stepper color="sinergia_2" #stepper (selectIndexChange)="selectChange($event)">
+        <ion-step color="sinergia_2" label="Identificación del Paciente">
+          <ion-item>
+            <ion-label floating>Ips*</ion-label>
+            <ion-input class="text" [(ngModel)]="ips" type="text" id="ips" value=""></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Correo*</ion-label>
+            <ion-input class="text" [(ngModel)]="correo" type="email" id="correo" value=""></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Teléfono*</ion-label>
+            <ion-input class="text" [(ngModel)]="telefono" type="text" id="telefono" value=""></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Celular*</ion-label>
+            <ion-input class="text" [(ngModel)]="celular" type="text" id="celular" value=""></ion-input>
+          </ion-item>
+          <ion-item text-wrap>
+            <ion-label class="text">AUTORIZÓ de manera previa, expresa, informada y explicita a CHRISTUS SINERGIA Salud para el uso y tratamiento de mis datos.</ion-label>
+            <ion-checkbox (ionChange)="aceptaTerminos()" [(ngModel)]="terminos"></ion-checkbox>
+          </ion-item>
+          <button ion-button small (click)="actualizarInfo()">Siguiente</button>
+        </ion-step>
+
+        <ion-step color="sinergia_2" label="Plan de Beneficios">
+          <span>{{nombreCompleto}}</span>
+          <ion-item>
+            <ion-label floating for="user" class="salto">Plan</ion-label>
+            <ion-select class="text" id="codPlan" [(ngModel)]="codPlan">
+              <ion-option *ngFor="let key of planes" value="{{ key.cod_planb }}">{{ key.desc_planb }}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label floating for="user" class="salto">Departamento</ion-label>
+            <ion-select class="text" id="codDepto" [(ngModel)]="codDepto" (ionChange)="selectCiudad()">
+              <ion-option *ngFor="let key of departamentos" value="{{ key.cod_departamento }}">{{ key.nom_departamento }}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label floating for="user" class="salto">Ciudad</ion-label>
+            <ion-select class="text" id="codCiudad" [(ngModel)]="codCiudad">
+              <ion-option *ngFor="let key of ciudades" value="{{ key.cod_ciudad }}">{{ key.nom_ciudad }}</ion-option>
+            </ion-select>
+          </ion-item>
+          <button ion-button color="light" small ionicStepperPrevious>Anterior</button>
+          <button ion-button small (click)="validacionDerechos()">Siguiente</button>
+        </ion-step>
+
+        <ion-step color="sinergia_2" label="Fecha Deseada">
+          <span>{{nombreCompleto}}</span>
+          <ion-item>
+            <ion-label floating for="user" class="salto">Servicio*</ion-label>
+            <ion-select class="text" id="codServicio" [(ngModel)]="codServicio" (ionChange)="selectServicio()">
+              <ion-option *ngFor="let key of servicios" value="{{ key.codigoServicio }}">{{ key.descServicio }}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label floating for="user" class="salto">Centro*</ion-label>
+            <ion-select class="text" id="codCentro" [(ngModel)]="codCentro">
+              <ion-option *ngFor="let key of centros" value="{{ key.cod_centro_atenci }}">{{ key.des_razon_social }}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label floating for="user" class="salto">Fecha deseada*</ion-label>
+            <ion-datetime class="text" displayFormat="MM/DD/YYYY" pickerFormat="DD-MMMM-YYYY" min="{{minFecha}}"  max="{{maxFecha}}" [(ngModel)]="fechaD" cancelText="Cancelar" doneText="Aceptar"></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label floating for="user" class="salto">Jornada*</ion-label>
+            <ion-select class="text" id="jornada" [(ngModel)]="jornada">
+              <ion-option value="am">AM</ion-option>
+              <ion-option value="pm">PM</ion-option>
+            </ion-select>
+          </ion-item>
+
+          <button ion-button color="light" small ionicStepperPrevious>Anterior</button>
+          <button ion-button small (click)="cuposDisponibles()">Siguiente</button>
+        </ion-step>
+        <ion-step color="sinergia_2" label="Asignación de cita">
+
+          Tiempo estipulado para escoger el horario de la cita: {{maxTime}} segundos.
+          <br><br>
+          <span>{{nombreCompleto}}</span>
+          <br><br>
+
+          <div class="txt-msg">
+            <span>{{msg}}</span>
+          </div>
+          <br><br>
+          Por favor, seleccione un horario:
+          <ion-list class="text" radio-group [(ngModel)]="codCupo" *ngFor="let key of cupos">
+            <ion-item>
+              <ion-radio (ionSelect)="modalNotificacion(key)" [value]="key.codigo" checked></ion-radio>
+              <ion-label class="text" text-wrap>{{key.hora_cita}} - {{key.fecha_cita}} {{key.desMedico}} {{key.desCentroAtenci}}</ion-label>
+            </ion-item>
+          </ion-list>
+
+          <button ion-button color="light" small ionicStepperPrevious (click)="anteriorCita()">Anterior</button>
+          <button ion-button small (click)="reiniciar()">Reinciar</button>
+        </ion-step>
+      </ion-stepper>
+    </div>
+  </div>
+
+</ion-content>
+<ion-footer>
+  <footer></footer>
+</ion-footer>

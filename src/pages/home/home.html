@@ -1,0 +1,66 @@
+<ion-header>
+  <div class="menu" style="height: 100px !important;">
+    <ion-navbar color="sinergia">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <div class="welcome-container">
+          <!-- <div style=" align-self: center;">
+            <img width="25px" height="25px" src="../../assets/img/img_inicio_sesion_2.png" />
+          </div> -->
+          <div class="bienvenido"><b>Bienvenido</b></div>
+          <div style=" align-self: center;">
+            <div class="titulo">
+              <img width="17px" height="17px" src="../../assets/img/img_inicio_sesion_2.png" />  {{title|lowercase}}
+            </div>
+          </div>
+        </div>
+    </ion-navbar>
+  </div>
+</ion-header>
+
+<ion-content>
+  <div style="display: flex; flex-direction: column; height: 100%;">
+
+    <div style="order: 1">
+      <div class="carousel">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-slides #carousel>
+                <ion-slide *ngFor="let imagen of imgs">
+                  <img src="{{imagen.nombre}}" id="{{imagen.id}}" />
+                </ion-slide>
+              </ion-slides>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+    <div class="fondo_1" style="order: 2;">
+      <div class="fondo_2">
+        <div class="containerMenu">
+          <ion-slides #menu>
+            <ion-slide>
+              <ion-grid>
+                <ion-row>
+                  <ion-col col-4 *ngFor="let menu of menus" (click)="goTo(menu)">
+                    <div class="containerOptions center-h center-v">
+                      <div class="child" style="width: 100% !important;">
+                        <img src="{{menu.img}}" class="{{menu.class}}" />
+                      </div>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-slide>
+          </ion-slides>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
+<ion-footer>
+  <footer></footer>
+</ion-footer>

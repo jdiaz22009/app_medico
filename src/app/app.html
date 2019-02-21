@@ -1,0 +1,38 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <div class="section-logo">
+      <div class="imgLogoMenu">
+        <img src="../../assets/imgs/LOGO_COOMEVA_EPS_2.png" width="100%"/>
+      </div>
+    </div>
+  </ion-header>
+
+
+
+      <ion-content>
+        <div>
+          <ion-list>
+            <!-- First Level -->
+            <div *ngFor="let p of pages; let i = index">
+              <!-- Toggle Button -->
+              <button ion-item (click)="toggleSection(i)" *ngIf="p.subMenu" detail-none [ngClass]="{'section-login-active': p.open && p.login, 'section-login': !p.open && p.login}">
+                <ion-icon item-right name="ios-arrow-forward" *ngIf="!p.open"></ion-icon>
+                <ion-icon item-right name="ios-arrow-down" *ngIf="p.open"></ion-icon>
+                {{ p.label }}
+              </button>
+
+              <!-- Direct Add Button as Fallback -->
+              <button menuClose ion-item *ngIf="!p.subMenu" detail-none text-wrap class="section" (click)="openPage(p)">
+                {{ p.label }}
+              </button>
+            </div>
+          </ion-list>
+        </div>
+      </ion-content>
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+<ion-footer>
+  <footer></footer>
+</ion-footer>

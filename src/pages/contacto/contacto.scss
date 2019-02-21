@@ -1,0 +1,57 @@
+page-contacto {
+    .textPrimary {
+        
+        font-size: 8px;
+    }
+    .item-avatar  {     
+        width:70% !important;  
+        height : 70% !important;  
+        max-width: 100px !important;  //any size
+        max-height: 100px !important; //any size 
+    }
+    .textSecond {
+        font-size: 14px;
+    }
+    ion-list{
+        padding-top: 5%; 
+    }
+    .list-lineas-atent{
+        background: transparent;
+    }
+    .textTerthird {
+        font-size: 12px;
+    }
+
+    .textPrimary, .textSecond, .textTerthird {
+        color: map-get($colors , sinergia);
+    }
+
+    div.desc {
+        font-size: 16px;
+        color: map-get($colors , sinergia);
+        text-align: center !important;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 15px;
+        font-weight: bold;
+    }
+
+    .list-header-md {
+        padding-left: 40px;
+        padding-right: 30px;
+    }
+
+    .shadow-list {
+        margin: 0px;
+        box-shadow: 0px -4px 1px -2px #888;
+        -webkit-box-shadow: 0px -4px 1px -2px #888;
+        -moz-box-shadow: 0px -4px 1px -2px #888;
+
+    }
+
+    #outer {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+}

@@ -1,0 +1,11 @@
+header {
+    .header {
+        background-color: rgb(71,10,104);// map-get($colors, sinergia);
+        //height: 8%; 
+    }
+
+    ion-navbar, .menu {
+        height: 100px;
+    }
+}
+

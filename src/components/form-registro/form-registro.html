@@ -1,0 +1,120 @@
+<div>
+  <form [formGroup]="formRegistro">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="desc">
+            <p>{{MSG.TEXT_TITULO}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div>
+            <p text-wrap>{{MSG.TEXT_NOTA}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="rounded">
+            <ion-label>Usuario</ion-label>
+            <ion-item>
+              <ion-input type="text" formControlName="usuario" minlength="8" required></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item *ngIf="formRegistro.get('usuario').errors && (formRegistro.get('usuario').dirty ||  formRegistro.get('usuario').touched)">
+            <p text-wrap color="danger" ion-text *ngIf="formRegistro.get('usuario').hasError('required')">{{MSG.VALIDACION_CAMPOS_OBLIGATORIO}}</p>
+            <p text-wrap color="danger" ion-text *ngIf="formRegistro.get('usuario').hasError('minlength')">{{MSG.VALIDACION_CAMPO_USUARIO_MIN_CARACTER}}</p>
+            <p text-wrap color="danger" ion-text *ngIf="formRegistro.get('usuario').hasError('pattern')">{{MSG.VALIDACION_CAMPO_ALFANUMERICO}}</p>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div class="rounded">
+            <ion-label>Contraseña</ion-label>
+            <ion-item>
+              <ion-input [type]="passwordType" clearOnEdit="false"  formControlName="contrasena"
+                required></ion-input>
+              <button ion-button clear item-end (click)='showHide1()' style="height:32px;">
+                <ion-icon [name]="passwordIcon" style="font-size:32px;"></ion-icon>
+              </button>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item *ngIf="formRegistro.get('contrasena').errors && (formRegistro.get('contrasena').dirty ||  formRegistro.get('contrasena').touched)">
+            <p text-wrap color="danger" ion-text *ngIf="formRegistro.get('contrasena').hasError('required')">{{MSG.VALIDACION_CAMPOS_OBLIGATORIO}}</p>
+            <p color="danger" ion-text *ngIf="formRegistro.get('contrasena').hasError('pattern')">{{MSG.VALIDACION_CAMPO_ALFANUMERICO}}</p>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div class="rounded">
+            <ion-label>Repetir contraseña</ion-label>
+            <ion-item>
+              <ion-input [type]="rpasswordType" clearOnEdit="false" formControlName="recontrasena" required></ion-input>
+              <button ion-button clear item-end (click)='showHide2()' style="height:32px;">
+                <ion-icon [name]="rpasswordIcon" style="font-size:32px;"></ion-icon>
+              </button>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item *ngIf="formRegistro.get('recontrasena').errors && (formRegistro.get('recontrasena').dirty ||  formRegistro.get('recontrasena').touched)">
+            <p text-wrap color="danger" ion-text *ngIf="formRegistro.get('recontrasena').hasError('required')">{{MSG.MSG_VALIDACION_OBLIGATORIO}}</p>
+            <p text-wrap color="danger" ion-text *ngIf="formRegistro.get('recontrasena').hasError('mismatchePasswords')">{{MSG.VALIDACION_CONFIRM_CONTRASEMA}}</p>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div class="rounded">
+            <ion-label>Código de seguridad</ion-label>
+            <ion-item>
+              <ion-input type="text" formControlName="codigoseguridad" required></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item *ngIf="formRegistro.get('codigoseguridad').errors && (formRegistro.get('codigoseguridad').dirty ||  formRegistro.get('codigoseguridad').touched)">
+            <p text-wrap color="danger" ion-text *ngIf="formRegistro.get('codigoseguridad').hasError('required')">{{MSG.MSG_VALIDACION_OBLIGATORIO}}</p>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col>
+          <button ion-button full round color="sinergia" [disabled]="formRegistro.invalid" (click)="finalizarRegistro()">Finalizar
+            Registro</button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <button ion-button full round color="sinergia" (click)="cancelarRegistro()">Cancelar</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</div>

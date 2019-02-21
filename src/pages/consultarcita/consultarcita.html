@@ -1,0 +1,136 @@
+<ion-header>
+  <header title="Consultar cita">
+  </header>
+</ion-header>
+
+<ion-content style="margin: 0px; padding: 0px;">
+  <div class="div_principal">
+    <div style="order: 1">
+      <img src="../../assets/img/fondo_3.jpg" />
+      <div class="img-icono">
+        <img id="img-login" class="img-consulta" src="../../assets/img/iconos/iconos_principales_02_v2.png" />
+      </div>
+    </div>
+    <div style="order: 2; display: flex; flex-direction: column; background-color: #cccccc;  background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url('../../assets/img/fondo_2.jpg'); height: 100%;">
+      <div style="order: 1; margin-top: 10%;">
+        <ion-grid style="align-content: center; margin-left: 10%">
+          <div class="rounded" style="display: flex; justify-content: space-between; width: 80%; margin: 2% 0;
+              background-color: rgb(190, 152, 190);  padding: 0 9%; border-radius: 15px;">
+            <ion-item style="background-color: rgb(190, 152, 190);  color: rgb(103, 30, 117) !important; border: none !important">
+              <ion-label style="color: rgb(103, 30, 117)">{{MSG.TEXT_DESDE}}</ion-label>
+              <ion-datetime max="{{maxFecha}}" displayFormat="MM/DD/YYYY" pickerFormat="DD-MMMM-YYYY" [(ngModel)]="fechaIni"
+                cancelText="Cancelar" doneText="Aceptar"></ion-datetime>
+            </ion-item>
+          </div>
+          <div class="rounded" style="display: flex; justify-content: space-between; width: 80%; margin: 2% 0;
+              background-color: rgb(190, 152, 190); color: rgb(103, 30, 117); padding: 0 9%; border-radius: 15px;">
+            <ion-item style="background-color: rgb(190, 152, 190);  color: rgb(103, 30, 117) !important; border: none !important">
+              <ion-label style="color: rgb(103, 30, 117)">{{MSG.TEXT_HASTA}}</ion-label>
+              <ion-datetime max="{{maxFecha}}" displayFormat="MM/DD/YYYY" pickerFormat="DD-MMMM-YYYY" [(ngModel)]="fechaFin"
+                cancelText="Cancelar" doneText="Aceptar"></ion-datetime>
+            </ion-item>
+          </div>
+          <div style="display: flex; justify-content: space-between; width: 80%; margin: 2% 0; padding: 0 9%; border-radius: 15px;">
+            <button ion-button block full round small (click)="consultarCitas()" class="btn">Consultar</button>
+          </div>
+        </ion-grid>
+      </div>
+      <div style="order: 2; margin-top: 10%; display: flex; flex-direction: column; height: 100%;">
+        <div *ngFor="let key of datosCitas; let i = index" style="margin-top: 5%">
+          <div class="nombre-item">
+            <b class="subtitulo">No de cita: </b>
+            <label for=""> {{key.cod_cita }}</label>
+          </div>
+          <div class="nombre-item">
+            <b class="subtitulo">Médico y Especialidad: </b>
+            <label for=""> {{key.des_prestador }} - {{key.des_tipo_profes}}</label>
+          </div>
+          <div class="nombre-item">
+            <b class="subtitulo" style="padding-right:10px !important" >Servicio:  </b>
+            <label style="text-transform:uppercase !important" for="serv"> {{key.des_progra_medico }}</label>
+          </div>
+          <div class="nombre-item">
+            <b class="subtitulo">Unidad de Atencón: </b>
+            <label for=""> {{key.des_razon_social }}</label>
+          </div>
+          <div class="nombre-item">
+            <b class="subtitulo">Fecha de la cita: </b>
+            <label for=""> {{key.fecha_cita }}</label>
+          </div>
+          <div class="nombre-item">
+            <b class="subtitulo">Hora de la cita: </b>
+            <label for=""> {{key.hora_cita }}</label>
+          </div>
+          <div class="nombre-item">
+            <b class="subtitulo">Estado de la cita: </b>
+            <label for=""> {{key.des_estado }}</label>
+          </div>
+          <div class="nombre-item">
+            <b class="subtitulo">Fecha de cancelación: </b>
+            <label for=""> {{key.fecha_cancela }}</label>
+          </div>
+          <div class="btnCOnsultar">
+            <div style="display: flex; justify-content: space-between; width: 65%; margin: 2% 0; padding: 0 0; border-radius: 15px;">
+              <button class="btn" ion-button block full round small [hidden]="key.fecha_cancela" (click)="cancelarCita(key, i)">Cancelar Cita</button>
+            </div>
+          </div>
+          <!--   <div class="nombre-item">
+            <b class="subtitulo">Nombre afiliado: </b>
+            <label for=""> {{key.nombre_afiliado }}</label>
+          </div>
+          <div class="nombre-item">
+            <div>
+              <b class="subtitulo">Fecha y hora: </b>
+            </div>
+            <div>
+              <label for="">{{ key.fecita }}</label>
+            </div>
+          </div>
+          <div class="nombre-item">
+            <div>
+              <b class="subtitulo">Centro: </b>
+            </div>
+            <div>
+              <label for="">{{ key.des_razon_social }}</label>
+            </div>
+          </div>
+          <div class="nombre-item">
+            <div>
+              <b class="subtitulo">Prestador: </b>
+            </div>
+            <div>
+              <label for="">{{ key.des_prestador }}</label>
+            </div>
+          </div>
+          <div class="nombre-item">
+            <div>
+              <b class="subtitulo">Servicio: </b>
+            </div>
+            <div>
+              <label for="">{{ key.des_progra_medico }}</label>
+            </div>
+          </div>
+          <div class="nombre-item">
+            <div>
+              <b class="subtitulo">Valor cita: </b>
+            </div>
+            <div>
+              <label for="">{{ key.vlr_cita }}</label>
+            </div>
+          </div>
+          <div class="nombre-item">
+            <div>
+              <b class="subtitulo">Fecha de cancelación: </b>
+            </div>
+            <div>
+              <label for="">{{ key.fecha_cancela }}</label>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <footer></footer>
+</ion-footer>

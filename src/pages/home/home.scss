@@ -1,0 +1,112 @@
+page-home {
+    div.carousel > .grid, 
+    div.carousel > .grid > .row, 
+    div.carousel > .grid > .row > .col {
+        padding: 0px !important;
+    }
+
+    .titleMenu{
+        text-align: center;
+        font-size: 13px;
+    }
+
+    div.containerMenu {
+        padding-top: 20px;
+    }
+
+    div.containerOptions {
+        //background: #e0e0e0;
+        //margin: 0 0 6px;
+        //height: 100px;
+        display: flex;
+        align-items: start;
+    }
+
+    div.center-h {
+        justify-content: center;
+    }
+
+    div.center-v {
+        align-items: center;
+    }
+
+    div.child {
+        //background: #60e0b0;
+        //padding: .2rem;
+        width: 70px;
+        margin-top: 20px;
+    }   
+
+    div.menu{
+        display: flex;
+        flex-direction: row; 
+        justify-content: center;
+        align-self: center;
+        width:100%;
+    }
+    
+    .toolbar-title-md, .toolbar-title-ios {
+        font-size: 16px; 
+    }
+
+    .toolbar-title-md {
+        padding-left: 0px;
+    }
+    
+    ion-navbar, .menu {
+        height: 100px;
+    }
+}
+
+.fondo_1{
+    background-image: url('../../assets/img/fondo_2.jpg');
+    background-repeat: no-repeat;
+    height: 30%;  
+    background-size: cover; 
+}
+
+.fondo_2{
+    background-image: url('../../assets/img/fondo.jpg');
+    background-repeat: no-repeat;
+    height: 70%;  
+    background-size: cover; 
+}
+.doble_fondo{
+    background-color: #cccccc;
+    background-image: url('../../assets/img/fondo.jpg') no-repeat 10px 10px,
+                      url('../../assets/img/fondo_2.jpg');
+    height: 100%;                      
+    /* background-size: cover; 
+    background-repeat: no-repeat, no-repeat;
+    background-position: bottom right, left;
+    background: -moz-linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0)), -webkit-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0)), -ms-linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0)), linear-gradient(to right, rgba(30, 75, 115, 1), rgba(255, 255, 255, 0)); */
+}
+
+.titulo{
+    text-transform: capitalize !important;
+    font-size: 16px; 
+    color: white;
+    flex-wrap: wrap;
+    font-weight: normal;
+    }
+
+.welcome-container {
+    order: 1;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-self: center;
+    width:100%;
+    height: 20%;
+}
+
+.toolbar-title{
+   white-space: normal;
+   align-self: center;
+}
+.bienvenido{
+    color: white !important;
+    font-size: 16px;
+    align-self: center;
+}
+

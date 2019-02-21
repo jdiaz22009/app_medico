@@ -1,0 +1,26 @@
+page-consultarcita {
+
+}
+
+.nombre-item{
+    display: flex;
+    width: 70%;
+    background-color:  rgb(190, 152, 190);
+    color: rgb(103, 30, 117) ;
+    border-radius: 15px;
+    margin: 1% 0;
+    padding: 1% 5%;
+    margin-left: 15%;
+    justify-content: space-between;
+}
+
+.btnCOnsultar{
+    display: flex;
+    width: 70%;
+    justify-content: flex-end;
+    margin-left: 15%;
+}
+.btn{
+    background-color: rgb(103, 30, 117);
+    color: white;
+}

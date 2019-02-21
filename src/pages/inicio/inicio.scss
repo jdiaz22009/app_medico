@@ -1,0 +1,31 @@
+page-inicio {
+    .inicio {
+        background: url(../../assets/imgs/INICIO.png) fixed;
+        background-size: cover;
+        height: 100%;
+        widows: 100%;
+    }
+
+    button {
+        height: 10px;
+    }
+
+    div.containerButton {
+        //background: #e0e0e0;
+        //margin: 0 0 5px;
+        height: 98%;
+        display: flex;
+    }
+
+    div.center-h {
+        justify-content: center;
+    }
+    div.center-v {
+        align-items: center;
+    }
+    div.child {
+        //background: #60e0b0;
+        //padding: .2rem;
+        align-self: flex-end;
+    }  
+}

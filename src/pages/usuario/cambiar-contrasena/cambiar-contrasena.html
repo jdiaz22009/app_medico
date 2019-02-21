@@ -1,0 +1,82 @@
+<ion-header>
+  <header-logo title="{{title}}"></header-logo>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="desc">
+            <p>{{MSG.TEXT_TITULO}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <span text-wrap>{{MSG.TEXT_NOTA_RECUPERAR_CONTRASENA}}</span>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div class="rounded">
+            <ion-label>{{MSG.LABEL_TIPO_ID}}</ion-label>
+            <ion-item>
+              <ion-select formControlName="tipoId" required>
+                <ion-option *ngFor=" let option of listTipoId " value="{{ option.CodigoTipoId }}">{{ option.DesTipoID}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item *ngIf="formulario.get('tipoId').errors && formulario.get('tipoId').dirty">
+            <p text-wrap color="danger" ion-text *ngIf="formulario.get('tipoId').hasError('required')">{{MSG.MSG_VALIDACION_OBLIGATORIO}}</p>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div class="rounded">
+            <ion-label>{{MSG.LABEL_NUM_DOCUMENTO}}</ion-label>
+            <ion-item>
+              <ion-input type="text" formControlName="numId" required></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item *ngIf="formulario.get('numId').errors && formulario.get('numId').dirty">
+            <p text-wrap color="danger" ion-text *ngIf="formulario.get('numId').hasError('required')">{{MSG.VALIDACION_CAMPOS_OBLIGATORIO}}</p>
+            <p text-wrap color="danger" ion-text *ngIf="formulario.get('numId').hasError('pattern')">{{MSG.VALIDACION_CAMPO_ALFANUMERICO}}</p>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <div id="divCaptcha"></div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <button ion-button color="sinergia" type="submit" full round [disabled]="!formulario.valid">{{MSG.BTN_GUARDAR_NUEVA_CONTRASENA}}</button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </form>
+
+</ion-content>
+
+<ion-footer>
+  <footer></footer>
+</ion-footer>

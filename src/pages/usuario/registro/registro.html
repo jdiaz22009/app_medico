@@ -1,0 +1,93 @@
+<ion-header>
+  <header-logo title="{{title}}"></header-logo>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-slides>
+
+    <ion-slide>
+      <form [formGroup]="formValida">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="desc">
+                <p>{{MSG.TEXT_TITULO}}</p>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div class="icon-left" style="width: 50%">
+                <img src="../../assets/imgs/MASCULINO_1.png" style="width:80px; height:80px;">
+              </div>
+              <div class="icon-right" style="width: 50%">
+                <img src="../../assets/imgs/FEMENINO_2.png" style="width:80px; height:80px;">
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div class="rounded">
+                <ion-label>{{MSG.LABEL_TIPO_ID}}</ion-label>
+                <ion-item>
+                  <ion-select [(ngModel)]="usuario.tipoId" formControlName="tipoId" required>
+                    <ion-option *ngFor=" let item of listTipoId " value="{{ item.CodigoTipoId }}">{{ item.DesTipoID }}</ion-option>
+                  </ion-select>
+                </ion-item>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-item *ngIf="formValida.get('tipoId').errors && formValida.get('tipoId').dirty">
+                <p text-wrap color="danger" ion-text *ngIf="formValida.get('tipoId').hasError('required')">{{MSG.VALIDACION_AMBOS_OBLIGATORIO}}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <div class="rounded">
+                <ion-label>{{MSG.LABEL_IDENTIFICACION}}</ion-label>
+                <ion-item>
+                  <ion-input type="text" [(ngModel)]="usuario.nroId" formControlName="nroId" maxlength="20" required></ion-input>
+                </ion-item>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-item *ngIf="formValida.get('nroId').errors && formValida.get('nroId').dirty">
+                <p text-wrap color="danger" ion-text *ngIf="formValida.get('nroId').hasError('required')">{{MSG.VALIDACION_AMBOS_OBLIGATORIO}}</p>
+                <p text-wrap color="danger" ion-text *ngIf="formValida.get('nroId').hasError('pattern')">{{MSG.VALIDACION_CAMPO_ALFANUMERICO}}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <button ion-button (click)="validar()" full round color="sinergia" [disabled]="formValida.invalid">Validar</button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <button ion-button (click)="irUltimopaso()" full round color="sinergia" [disabled]="!isUltimoPaso">{{MSG.BTN_IR_ULTIMO_PASO}}</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-slide>
+    <!--fin formulario validar-->
+    <ion-slide>
+     <form-registro></form-registro>
+    </ion-slide>
+
+  </ion-slides>
+</ion-content>
+
+
+<ion-footer>
+  <footer></footer>
+</ion-footer>
