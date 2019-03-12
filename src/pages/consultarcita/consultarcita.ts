@@ -111,26 +111,32 @@ export class ConsultarcitaPage {
         this.datosCitas = [];
         if (dataR.codigoRespuesta == false) {
           let mensaje = dataR.mensaje;
-          let arrMensaje = mensaje.split(":");
-          this.alert.showAlerta({ content: arrMensaje[1] });
+          if(mensaje){
+            this.alert.showAlerta({ content: mensaje});
+   /*          let arrMensaje = mensaje.split(":");
+            if(arrMensaje[1]){
+                this.alert.showAlerta({ content: arrMensaje[1] });
+            } */
+          }
+          console.log(dataR);
           return false;
         }
-
         this.datosCitas = dataR;
         showLoading.dismiss();
       },
       error: err => {
         showLoading.dismiss();
         let data = { content: MSG_RES.get("-1") }
-        this.utilityProvider.showAlert(data);
+        if(data){
+          this.utilityProvider.showAlert(data);
+        }
       },
       includeToken: false
     });
     showLoading.dismiss();
   }
 
-  private validaCanncelarCita(cita):boolean{
-    console.log(cita);
+  private validaCanncelarCita(cita):boolean{    
     let flagvalid:boolean = true;
     let fechaCita = cita.fecita;
     let flag = this.utilityProvider.menorQueFechaActual(fechaCita);

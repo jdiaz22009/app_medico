@@ -61,7 +61,7 @@ export class MenuProvider {
     Fecha Autor Modificacion
    --------------------------------------------------------------------------------*/
   getMenuLogOut() {
-    console.log("vacio");
+    
     return [
       /*{
        img: '../../assets/imgs/MENU_IMG_7.png',

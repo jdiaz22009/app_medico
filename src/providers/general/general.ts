@@ -16,7 +16,7 @@ export class GeneralProvider {
 
   //Declaración de variables
   private options: any;
-  private loginUser: string = "CITASWEB_SN";
+  private loginUser: string = "CITASWEB_APP";
   private passUser: string = "Christus_14";
   constructor(
     public http: Http,
@@ -36,7 +36,8 @@ export class GeneralProvider {
     Copyright Iteria SAS - Colombia
     Procedimiento: Login
     Descripcion : 
-    Autor : Andres Velasco andres.velasco@iteria.com.co
+    Autor : Bairon Fernando Freire Otalvaro
+          : bairon.freire@iteria.com.co
     Fecha : 29/10/2018
    ----------------------------------------------------------------------------------
     Historia de Modificaciones
@@ -58,8 +59,6 @@ export class GeneralProvider {
       "numDocumento": usuario.nroId,
       "fechaNacimiento": fecha
     }
-    console.log("json login");
-    console.log(json);
     this.httpProvider.post(ENV.RUTAS_GENERALES, json, httpRequestHandler)
   }
 
@@ -75,7 +74,8 @@ export class GeneralProvider {
    Procedimiento: GetDepartamentos
    Descripcion : funcion que retorna los departamentos obtenidos del servico 
    WS_WebService 
-   Autor : Andres Velasco andres.velasco@iteria.com.co    
+   Autor : Guillen Andres Hoyos Gonzalez
+         : guillen.hoyos@iteria.com.co    
    Fecha : 31/10/2018
    ----------------------------------------------------------------------------------
    Historia de Modificaciones
@@ -114,7 +114,7 @@ export class GeneralProvider {
      Procedimiento : crear cuenta
      Descripcion : Función consume el servicio web de los 
                    tipos de identificacion del afiliado
-     Autor : Andres Velasco andres.velasco@iteria.com.co
+     Autor : Bairon Fernando Freire (bairon.freire@iteria.com.co)
      Fecha : 07/11/2018
     ----------------------------------------------------------------------------------
      Historia de Modificaciones
@@ -132,6 +132,7 @@ export class GeneralProvider {
   webServicesWithLogin(json, httpRequestHandler: HttpRequestHandler) {
     json['Login'] = this.loginUser;
     json['Clave'] = this.passUser;
+    console.log(json);
     this.httpProvider.post(ENV.RUTAS_GENERALES, json, httpRequestHandler);
   }
 
@@ -155,7 +156,8 @@ export class GeneralProvider {
     Procedimiento: fn_GetConsultaCitas
     Descripcion : funcion que retorna las citas asignadas al paciente
     obtenidos del servico  WS_WebService fn_GetConsultaCitas 
-    Autor : Andres Velasco andres.velasco@iteria.com.co    
+    Autor : Guillen Andres Hoyos Gonzalez
+          : guillen.hoyos@iteria.com.co    
     Fecha : 31/10/2018
     ----------------------------------------------------------------------------------
     Historia de Modificaciones

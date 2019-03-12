@@ -1,5 +1,5 @@
 <ion-header>
-  <header title="Contáctanos">
+  <header title="Contáctenos">
   </header>
 </ion-header>
 
@@ -8,7 +8,7 @@
     <div style="order: 1">
       <img src="../../assets/img/fondo_4.jpg" />
       <div class="img-icono">
-        <img id="img-login" class="img-contactos" src="../../assets/img/iconos/iconos_principales_03_v2.png" />
+        <img id="img-login" width="50%" class="img-contactos" src="../../assets/img/iconos/iconos_principales_03_v2.png" />
       </div>
     </div>
     <div style="order: 2; display: flex; flex-direction: column; background-color: #cccccc;  background-position: center; background-repeat: no-repeat; background-size: cover; background-image: url('../../assets/img/fondo_2.jpg'); height: 100%;">
@@ -16,7 +16,7 @@
 
         <div id="outer">
           <div id="blueDiv">
-            <img id="img-login" width="200" height="105" src="../../assets/img/ChristusSinergia_RecomendadaPositiva.png" />
+            <img id="img-login" width="200" height="90" src="../../assets/img/ChristusSinergia_RecomendadaPositiva.png" />
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@
               </div>
             </ion-col>
             <ion-col col-2>
-              <ion-icon ios="ios-call" style="font-size: 40px;" md="ios-call-outline"></ion-icon>
+              <ion-icon [name]="linea.icono" style="font-size: 40px;"></ion-icon>
             </ion-col>
           </ion-row>
         </ion-grid>

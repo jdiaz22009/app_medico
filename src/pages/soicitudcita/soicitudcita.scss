@@ -3,10 +3,6 @@ page-soicitudcita {
     .text{
         font-size: 8pt;
     }
-
-    ion-navbar, .menu {
-        height: 100px;
-    }
 }
 
 ion-step-header .ionic-step-header-icon-active{
@@ -58,3 +54,13 @@ ion-step-header .ionic-step-header-text-container{
 .txt-terminos{
     text-align: justify;
 } 
+
+.alert-radio-label {
+    white-space: normal!important;
+}
+
+.disabled{
+    border: 1px solid #999999 !important;
+    background-color: #cccccc !important;
+    color: #666666 !important;
+}

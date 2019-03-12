@@ -34,7 +34,8 @@ export class StorageProvider {
       Copyright Iteria SAS - Colombia
       Procedimiento: Login
       Descripcion : Metodo consulta la informacion del local storage
-      Autor : Andres Velasco andres.velasco@iteria.com.co
+      Autor : Bairon Fernando Freire Otalvaro
+            : bairon.freire@iteria.com.co
       Fecha : 29/10/2018
      ----------------------------------------------------------------------------------
       Historia de Modificaciones
@@ -67,7 +68,8 @@ export class StorageProvider {
         Copyright Iteria SAS - Colombia
         Procedimiento: Login
         Descripcion : Metodo guarda informacion en el loca storage
-        Autor : Andres Velasco andres.velasco@iteria.com.co
+        Autor : Bairon Fernando Freire Otalvaro
+              : bairon.freire@iteria.com.co
         Fecha : 29/10/2018
        ----------------------------------------------------------------------------------
         Historia de Modificaciones

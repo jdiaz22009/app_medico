@@ -16,7 +16,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 export interface FormModel {
- // captcha?: string;
+  captcha?: string;
 }
 @IonicPage()
 @Component({
@@ -31,8 +31,7 @@ export class LoginPage {
   tipoDoc: any;
   apiSite: string;
   formLogin: FormGroup;
-  //captcha: string;
-  private captcha;
+  captcha: string;
   public formModel: FormModel = {};
 
   constructor(
@@ -49,7 +48,7 @@ export class LoginPage {
     , public alertCtrl: AlertController
     , private iap: InAppBrowser
     , private generarProvider: GeneralProvider) {
-
+    this.validarSesion();
     this.storageService.remove("usuario");
     this.createValidations(formBuilder);
     this.getListTipoId(1);
@@ -65,12 +64,18 @@ export class LoginPage {
     console.log(`Resolved captcha with response ${captchaResponse}:`);
   }
 
-
+  validarSesion(){
+    this.session.isLogin().then((res: boolean) => {
+      if (res) {        
+        this.navCtrl.setRoot("HomePage");
+      }
+    });
+  }
   /*--------------------------------------------------------------------------------
     Copyright Iteria SAS - Colombia
     Procedimiento: getListTipoId
     Descripcion : Consulta los tipos de identificación del afiliado
-    Autor : Andres Velasco andres.velasco@iteria.com.co
+    Autor : 
           : 
     Fecha :
     ----------------------------------------------------------------------------------
@@ -83,11 +88,9 @@ export class LoginPage {
     showLoading.present();
 
     this.generarProvider.getTipoID({
-      success: res => {
-        console.log(res['1']);
+      success: res => {        
         showLoading.dismiss();
         this.tipoDoc = Object.keys(res).map(key => res[key]);
-        console.log(this.tipoDoc);
         /*   Object.values(res); */
         /*         this.tipoDoc = res; */
       },
@@ -108,7 +111,7 @@ export class LoginPage {
    Copyright Iteria SAS - Colombia
    Procedimiento: Inicio de sesión de usuario
    Descripcion : 
-   Autor : Andres Velasco andres.velasco@iteria.com.co
+   Autor : 
    Fecha : 
    ----------------------------------------------------------------------------------
    Historia de Modificaciones
@@ -126,8 +129,6 @@ export class LoginPage {
 
         }
 
-        console.log("res");
-        console.log(res);
         if (res.length == 0) {
           showLoading.dismiss();
           this.utilityProvider.showAlert({ content: this.homologarMensajes("800", "El nombre de usuario es invalido") });
@@ -171,24 +172,6 @@ export class LoginPage {
     });
   }
 
-  ionViewDidLoad() {
-    this.onloadCallback();
-  }
-
-  onloadCallback() {
-    this.captcha = grecaptcha.render("divCaptcha", {
-      sitekey: "6LdVG3sUAAAAAGvp8ECNh0enfcdcwLt5zC-s58rT",
-      theme: "light",
-      callback: this.verifyCallback
-    });
-  }
-
-  verifyCallback(response: any) {
-    return new Promise((resolve, reject) => {
-      resolve(response);
-    });
-  }
-
   redirectForm() {
     let alert = this.alertCtrl.create({
       title: 'Información',
@@ -213,7 +196,7 @@ export class LoginPage {
   Procedimiento: Inicio de sesión de usuario
   Descripcion : Función permite homologar los mensajes del ws 
                 por los parametrizados.
-  Autor : Andres Velasco andres.velasco@iteria.com.co
+  Autor : 
   Fecha : 
   ----------------------------------------------------------------------------------
   Historia de Modificaciones
@@ -246,7 +229,7 @@ export class LoginPage {
       nroId: ['', [Validators.required, Validators.pattern(/^[A-Za-z0-9]+$/)]],
       fechaNacimiento: ['', [Validators.required, Validators.required]],
       isRecordarContrasena: [false, []],
-    //  captcha: ['', [Validators.required, Validators.required]],
+      captcha: ['', [Validators.required, Validators.required]],
     });
   }
 

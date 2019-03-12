@@ -1,0 +1,36 @@
+page-home-app {
+
+}
+
+.div-bienvenido{
+    order: 1;
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-self: center;
+    width:100%;
+    background-image: url('../../assets/img/fondo_5.jpg');
+    background-repeat: no-repeat;
+    height: 20%;  
+    background-size: cover; 
+    
+}
+
+.div-bienvenido-home{
+    order: 1;
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-self: center;
+    width:100%;
+    background-image: url('../../assets/img/fondo_6.jpg');
+    background-repeat: no-repeat;
+    height: 9%;  
+    background-size: cover; 
+    
+}
+
+.icono_1{
+    width: 50%;
+    margin: 2% -2%;
+}

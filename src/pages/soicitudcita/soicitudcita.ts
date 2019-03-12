@@ -46,10 +46,11 @@ export class SoicitudcitaPage {
   terminos: boolean = false;
   cupos: any[];
   codCupo: string;
+  codContrato: string;
   lineaAtencion: string = '018000934310';
   fechaCorta: string = new Date().toISOString();
   fecha: string = this.fechaCorta;
-  minFecha: string = (new Date().getFullYear()).toString();
+  minFecha: string = (new Date().getFullYear()+"-"+ this.formatCero((new Date().getMonth() + 1))+"-"+this.formatCero(new Date().getDate())).toString();
   maxFecha: string = (new Date().getFullYear() + 5).toString();
   codServicioPediatria = 175;
   urlRofm: string = "https://forms.office.com/Pages/ResponsePage.aspx?id=Ozy3vcnCgUqvZiNc6sssOJw8aID0RpxLixtPvpULyvVUQThVM1NKNjlZT1hBT1lUUzJBV1c1RDIyRi4u&embed=true";
@@ -57,7 +58,7 @@ export class SoicitudcitaPage {
   @ViewChild('stepper') stepper: IonicStepperComponent;
 
   constructor(
-    public navCtrl: NavController,
+     public navCtrl: NavController,
     public generalProvider: GeneralProvider,
     public alert: AlertProvider,
     public navParams: NavParams,
@@ -88,8 +89,16 @@ export class SoicitudcitaPage {
 
   }
 
+  formatCero(dato: number) {
+    let datoString = dato.toString();
+    if (datoString.length == 1) {
+      return "0" + datoString;
+    }
+    return datoString;
+  }
+
   notificacionInicial() {
-    this.alert.showAlerta({ content: "Apreciado paciente, los datos que se encuentran con (****) son para proteger tu información personal.  Apreciado paciente, es importante garantizar la actualización de datos personales, le solicitamos amablemente que si la información mostrada a continuacion no es correcta la actualice (correo electrónico, teléfono fijo y celular).", titulo: "Información" });
+    this.alert.showAlerta({ content: "Apreciado paciente, los datos que se encuentran con (****) son para proteger su información personal. Es importante garantizar la actualización de sus datos. Le solicitamos amablemente  actualizar la información que se muestra a continuación si ésta no es correcta (correo electrónico, teléfono fijo y celular).", titulo: "Información" });
   }
 
   selectChange(e) {
@@ -133,14 +142,15 @@ export class SoicitudcitaPage {
 
     this.generalProvider.webServicesWithUsuario(dataJson, {
       success: data => {
-
+        this.servicios = [];
+        this.codServicio = "";
         if (!data) {
           showLoading.dismiss();
           this.alert.showAlerta({ content: "El afiliado no tiene derechos." });
           return false;
         }
         let arrServicio: any = [];
-        if (data.indProceso == true) {
+        if (!Array.isArray(data)) {
           arrServicio = data.servicios;
         } else {
           arrServicio = data;
@@ -159,6 +169,7 @@ export class SoicitudcitaPage {
 
           }
         }
+
         this.servicios = arrServicio;
         showLoading.dismiss();
         this.stepper.setStep(2);
@@ -228,18 +239,31 @@ export class SoicitudcitaPage {
 
   ind_ordamientos: boolean = false;
 
+  json2array(json) {
+    var result = [];
+    var keys = Object.keys(json);
+    keys.forEach(function (key) {
+      result.push(json[key]);
+    });
+    return result;
+  }
+
   selectServicio() {
     this.ind_ordamientos = false;
-    this.centros = [];
+
     this.codCentro = "";
     const resultado = this.servicios.find(servicio => servicio.codigoServicio == this.codServicio);
-    this.centros = resultado.centros;
+    this.centros = this.json2array(resultado.centros);
+    if(this.codPlan == "1"){
+      this.codContrato = resultado.codContrato;
+   }
+    
     if (resultado.ind_requiereOrden == "1") {
       this.ind_ordamientos = true;
       let alert = this.alertCtrl.create({
         title: 'Información',
         cssClass: "classConfirmacion",
-        message: 'Este servicio requiere de orden!',
+        message: 'Este servicio requiere de orden',
         buttons: [
           {
             text: 'Cerrar',
@@ -408,9 +432,15 @@ export class SoicitudcitaPage {
 
     const resultado = this.servicios.find(servicio => servicio.codigoServicio == this.codServicio);
     const procedimientos = resultado.procedimiento;
+    let codAfi = "";
+    if(this.codPlan == "1"){
+       codAfi = this.datosAfiliado.codPaciente;
+    }else if(this.codPlan == "2"){
+       codAfi = this.datosAfiliado.codAfiliado;
+    }
     let dataJson = {
       "function": "consultarCuposDisponibles",
-      "codAfiPac": this.datosAfiliado.codAfiliado,
+      "codAfiPac": codAfi,
       "codServicio": this.codServicio,
       "codProcedimiento": procedimientos[0].cod_unico,
       "fechaDeseada": this.datePipe.transform(this.fechaD, "dd/MM/yyyy"),
@@ -483,7 +513,6 @@ export class SoicitudcitaPage {
     this.generalProvider.webServicesOnlyUsuario(dataJson, {
       success: res => {
         console.log("traza_log_atras_res");
-        console.log(res);
       },
       error: err => {
         showLoading.dismiss();
@@ -498,7 +527,7 @@ export class SoicitudcitaPage {
     /* console.log("validacion de centros"); */
     let servicio = this.servicios.find(servicio => servicio.codigoServicio == this.codServicio);
 
-    let msg = 'Apreciado paciente, está seguro que desea asignar cita de <b>"' + servicio.descServicio + '"</b> para el <b>"' + item.fecha_cita + '"</b> en <b>"' + item.desCentroAtenci + '"</b> con el profesional <b>"' + item.desMedico + '"</b>';
+    let msg = 'Apreciado paciente, ¿está seguro que desea asignar cita de <b>"' + servicio.descServicio + '"</b> para el <b>"' + item.fecha_cita + '"</b> con el profesional <b>"' + item.desMedico + '"</b>?<b>';
     let alert = this.alertCtrl.create({
       title: 'Confirmación',
       cssClass: "classConfirmacion",
@@ -537,6 +566,7 @@ export class SoicitudcitaPage {
         {
           text: 'Confirmar',
           handler: () => {
+            this.pauseTimer();
             this.stepper.setStep(0);
           }
         }
@@ -551,6 +581,11 @@ export class SoicitudcitaPage {
     showLoading.present();
     // const resultado = this.servicios.find(servicio => servicio.codigoServicio == this.codServicio);
     //    const procedimientos = resultado.procedimiento;
+    let codC = "";
+    if(this.codPlan == "1"){
+      codC = this.codContrato;
+   }
+
     let data = {
       "function": "asignarCita_SNC",
       "codCupo": this.codCupo,
@@ -560,7 +595,7 @@ export class SoicitudcitaPage {
       "codPlanBenefi": this.codPlan,
       "correoPac": this.datosAfiliado.Emailenvio,
       "codOrdenamiento": this.codOrdenamiento,
-      "codContrato": ""
+      "codContrato": codC
     };
 
     this.generalProvider.webServicesWithUsuario(data, {
@@ -569,10 +604,10 @@ export class SoicitudcitaPage {
         let arrMensaje = mensaje.split(":");
         if (dataR.indProceso) {
           let dia = this.datePipe.transform(this.fechaD, "dd");
-          let mes = this.datePipe.transform(this.fechaD, "MMMM");
+          let mes = this.traducirMesEspanol(this.datePipe.transform(this.fechaD, "MM"));
           let anio = this.datePipe.transform(this.fechaD, "yyyy");
           showLoading.dismiss();
-          let msg = 'El dia <b>' + dia + '</b> del mes de <b>' + mes + '</b> a las <b>' + item.hora_cita + '</b> del año <b>' + anio + '</b> con el profesional <b>' + item.desMedico + '</b> en la unidad básica de atención: <b>' + item.desCentroAtenci + '</b> con dirección <b>' + dataR.cita.dirCentro + '</b> con su cuota moderadora para la atención corresponde a: <b>$' + dataR.cita.vlrCita + '.</br>Al correo <b>' + this.datosAfiliado.Emailenvio + '</b> recibiras el detalle de la información de la cita asignada.';
+          let msg = 'El <b>' + this.datePipe.transform(this.fechaD, "dd") + "-" + this.datePipe.transform(this.fechaD, "MM") + "-" +this.datePipe.transform(this.fechaD, "yyyy") +'</b> a las <b>' + item.hora_cita + '</b> con el profesional <b>' + item.desMedico + '</b> en la unidad básica de atención: <b>' + item.desCentroAtenci + '</b> con dirección <b>' + dataR.cita.dirCentro + '</b> con su cuota moderadora para la atención corresponde a: <b>$' + dataR.cita.vlrCita + '.</br>Al correo <b>' + this.datosAfiliado.Emailenvio + '</b> recibirá el detalle de la información de la cita asignada.';
           let alert = this.alertCtrl.create({
             title: 'Cita Asignada',
             cssClass: "classConfirmacion",
@@ -590,17 +625,12 @@ export class SoicitudcitaPage {
           alert.present();
         } else {
           showLoading.dismiss();
+          if(dataR && dataR.mensaje){
           this.trazaErrorGuardar(dataR.mensaje, data);
           this.alert.showAlerta({ content: arrMensaje[1], titulo: "Advertencia" });
         }
+        }
 
-        /*         if (arrMensaje[0] == "28") {
-              
-                } else {
-                  showLoading.dismiss();
-                  this.trazaErrorGuardar(dataR.mensaje);
-                  this.alert.showAlerta({ content: arrMensaje[1], titulo: "Advertencia" });
-                } */
       },
       error: err => {
         showLoading.dismiss();
@@ -609,6 +639,51 @@ export class SoicitudcitaPage {
       },
       includeToken: false
     });
+  }
+
+  traducirMesEspanol(mes){
+    let mesString = "";
+    switch(mes)
+    {
+    case "01":
+    mesString = "Enero";
+    break;
+    case "02":
+    mesString = "Febrero";
+    break;
+    case "03":
+    mesString = "Marzo";
+    break;
+    case "04":
+    mesString = "Abril";
+    break;
+    case "05":
+    mesString = "Mayo";
+    break;
+    case "06":
+    mesString = "Junio";
+    break;
+    case "07":
+    mesString = "Julio";
+    break;
+    case "08":
+    mesString = "Agosto";
+    break;
+    case "09":
+    mesString = "Septiembre";
+    break;
+    case 10:
+    mesString = "Octubre";
+    break;
+    case 11:
+    mesString = "Noviembre";
+    break;
+    case 12:
+    mesString = "Diciembre";
+    break;
+    }
+
+    return mesString;
   }
 
   trazaErrorGuardar(msg, dataInfo) {
@@ -639,21 +714,18 @@ export class SoicitudcitaPage {
     });
   }
 
+  ionViewWillUnload() {
+    this.pauseTimer();    
+  }
+
   actualizarInfo() {
     let showLoading = this.alert.showLoadingText();
     showLoading.present();
     let data: any = {};
     data['codAfiliado'] = this.datosAfiliado.codAfiliado;
     data['function'] = "actualizaInfoAfiSN";
-
-
-    if (!this.ips) {
-      showLoading.dismiss();
-      this.alert.showAlerta({ content: "El campo ips es obligatorio." });
-      return false;
-    }
-
-
+    data['codPaciente'] = this.datosAfiliado.codPaciente;
+    
     if (!this.correo) {
       showLoading.dismiss();
       this.alert.showAlerta({ content: "El campo correo es obligatorio." });
@@ -670,7 +742,7 @@ export class SoicitudcitaPage {
 
     if (!this.celular) {
       showLoading.dismiss();
-      this.alert.showAlerta({ content: "El celular ips es obligatorio." });
+      this.alert.showAlerta({ content: "El campo celular es obligatorio." });
       return false;
     }
 
@@ -696,12 +768,14 @@ export class SoicitudcitaPage {
 
     this.generalProvider.webServicesWithLogin(data, {
       success: dataR => {
+
         showLoading.dismiss();
         let mensaje = dataR.mensaje;
         let arrMensaje = mensaje.split(":");
         data = dataR;
         if (data.error == true) {
-          this.alert.showAlerta({ content: arrMensaje[1] });
+          this.alert.showAlerta({ content: dataR.mensaje });
+          console.log(data);
           //alert(data.mensaje);
         } else {
           this.stepper.setStep(1);
@@ -738,8 +812,8 @@ export class SoicitudcitaPage {
       },
       error: err => {
         showLoading.dismiss();
-        let data = { content: MSG_RES.get("-1") }
-        this.utilityProvider.showAlert(data);
+/*         let data = { content: MSG_RES.get("-1") }
+        this.utilityProvider.showAlert(data); */
       },
       includeToken: false
     });

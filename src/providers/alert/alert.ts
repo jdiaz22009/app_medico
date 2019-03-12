@@ -51,7 +51,7 @@ export class AlertProvider {
     Copyright Iteria SAS - Colombia
     Procedimiento: showAlert
     Descripcion : Función para mostrar alerta
-    Autor : Andres Velasco andres.velasco@iteria.com.co
+    Autor : Bairon Freire (bairon.freire@iteria.com.co)
     Fecha : 29/10/2018
     ----------------------------------------------------------------------------------
     Historia de Modificaciones
@@ -61,12 +61,20 @@ export class AlertProvider {
   showAlerta(data) {
     let cssClass: string = (data.classCss != null && data.classCss != "") ? data.classCss : "customAlert";
 
-    /* if (this.platform.is('android')) {
+     if (this.platform.is('android')) {
       cssClass += " customAlertAndroid";
-    } */
+    } 
+     let titulo = "";
+    if(data.titulo != null && data.titulo != "" && data.titulo == "nothing"){
+      titulo = "";
+    }else if(data.titulo != null && data.titulo != "" && data.titulo != "nothing"){
+      titulo = data.titulo;
+    }else{
+      titulo = "Advertencia";
+    }
 
     const alert = this.alertCtrl.create({
-      title: (data.titulo != null && data.titulo != "") ? data.titulo : "Advertencia",
+      title: titulo,
       //subTitle: '',
       message: data.content,
       cssClass: cssClass,

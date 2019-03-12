@@ -98,7 +98,7 @@ export class UtilityProvider {
     Copyright Iteria SAS - Colombia
     Procedimiento: presentToast
     Descripcion : Validar fecha menor que la actual dd/mm/yyyy
-    Autor : Andres Velasco andres.velasco@iteria.com.co
+    Autor : Bairon Freire Velasco (bairon.freire@iteria.com.co)
     Fecha : 24/01/2019
     ----------------------------------------------------------------------------------
     Historia de Modificaciones
@@ -120,7 +120,7 @@ export class UtilityProvider {
     Procedimiento: presentToast
     Descripcion : funcion revierte el orden de la fecha dependiendo los split
     ('dd/mm/yyy') split : "/" , split : "/" =  'yyyy/mm/dd'
-    Autor : Andres Velasco andres.velasco@iteria.com.co
+    Autor : Bairon Freire Velasco (bairon.freire@iteria.com.co)
     Fecha : 24/01/2019
     ----------------------------------------------------------------------------------
     Historia de Modificaciones

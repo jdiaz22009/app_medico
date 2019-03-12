@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { MenuProvider } from '../providers/menu/menu';
 import { UtilityProvider } from '../providers/utility/utility'
 import { SessionProvider } from '../providers/session/session';
-
+import { HomeAppPage } from '../pages/home-app/home-app';
 @Component({
   templateUrl: 'app.html'
 })
@@ -32,14 +32,14 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-
-      this.sessionProvider.isLogin().then((res: boolean) => {
+      this.rootPage = HomeAppPage;
+  /*     this.sessionProvider.isLogin().then((res: boolean) => {
         if (res) {
           this.rootPage = "HomePage";
         } else {
           this.rootPage = "LoginPage";
         }
-      });
+      }); */
 
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -59,7 +59,7 @@ export class MyApp {
 
       this.sessionProvider.signOut().then(res => {
         setTimeout(() => {
-          this.nav.setRoot("LoginPage");
+          this.nav.setRoot(HomeAppPage);
           showLoading.dismiss();
         }, 500);
       });
@@ -75,7 +75,8 @@ export class MyApp {
    Copyright Iteria SAS - Colombia
    Procedimiento: toggleSection
    Descripcion : Desplegar subMenu Nivel 1 
-   Autor : Andres Velasco andres.velasco@iteria.com.co
+   Autor : Bairon Fernando Freire Otalvaro
+         : bairon.freire@iteria.com.co
    Fecha : 19/11/2018
    ----------------------------------------------------------------------------------
    Historia de Modificaciones

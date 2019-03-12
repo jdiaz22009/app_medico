@@ -22,6 +22,7 @@ import { SessionProvider } from '../providers/session/session';
 import { IonicStepperModule, IonicStepComponent } from 'ionic-stepper';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SoicitudcitaPage, TerminosPage } from '../pages/soicitudcita/soicitudcita';
+import { HomeAppPage } from '../pages/home-app/home-app';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { HttpProvider } from '../shared/http/http';
@@ -33,12 +34,13 @@ import { File } from '@ionic-native/file';
   declarations: [
     MyApp,
     TerminosPage,
-    SoicitudcitaPage
+    SoicitudcitaPage,
+    HomeAppPage
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RecaptchaModule.forRoot(),
+    RecaptchaModule,
     IonicModule.forRoot(MyApp, {
       monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
       monthShortNames: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
@@ -54,7 +56,8 @@ import { File } from '@ionic-native/file';
   entryComponents: [
     MyApp,
     TerminosPage,
-    SoicitudcitaPage
+    SoicitudcitaPage,
+    HomeAppPage
   ],
   providers: [
     StatusBar,

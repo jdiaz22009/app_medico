@@ -25,7 +25,7 @@
     Constante : MSG_RES
     Descripcion : Constante que contiene los codigos de respuesta y los mensajes 
                     correspondientes del WEB SERVICE HistorialPortabilidad
-    Autor : Andres Velasco andres.velasco@iteria.com.co
+    Autor : guillen.hoyos@iteria.com.co
     Fecha : 14/11/2018
     ----------------------------------------------------------------------------------
     Historia de Modificaciones

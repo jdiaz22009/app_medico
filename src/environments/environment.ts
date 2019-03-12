@@ -1,7 +1,7 @@
 //import { Environment } from './environment.model';
 //let base = ''; //DESARROLLO
- 
-let base = 'http://cdplin61.intracoomeva.com.co/pruebas/ciklos/php/modelo/app/appFrontController.php'; //PRUEBAS_BASE
+let base = 'http://www.ciklos.com.co/ciklos/php/modelo/app/appFrontController.php'
+//let base = 'http://cdplin61.intracoomeva.com.co/pruebas/ciklos/php/modelo/app/appFrontController.php'; //PRUEBAS_BASE
 
 let afiliacion  = 'http://cdplin61.intracoomeva.com.co/pruebas/afiliacion/php/modelo/app/appFrontController.php' //PRUEBAS_AFILIACION
 

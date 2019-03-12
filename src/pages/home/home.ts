@@ -4,7 +4,7 @@ import { AlertProvider } from '../../providers/alert/alert';
 import { MenuProvider } from '../../providers/menu/menu';
 import { UtilityProvider } from '../../providers/utility/utility';
 import { SessionProvider } from '../../providers/session/session';
-
+import { HomeAppPage } from '../home-app/home-app';
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -116,7 +116,7 @@ export class HomePage {
 
     this.sessionProvider.signOut().then(res => {
       setTimeout(() => {
-        this.navCtrl.setRoot("LoginPage");
+        this.navCtrl.setRoot(HomeAppPage);
         showLoading.dismiss();
       }, 1000);
     });

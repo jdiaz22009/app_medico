@@ -14,7 +14,8 @@ export class SessionProvider {
      Copyright Iteria SAS - Colombia
      Procedimiento: Inicio de sesión de usuario
      Descripcion : Funcion crea la session del usuario
-     Autor : Andres Velasco andres.velasco@iteria.com.co
+     Autor : Bairon Fernando Freire Otalvaro
+           : bairon.freire@iteria.com.co
      Fecha : 16/11/2018
      ----------------------------------------------------------------------------------
      Historia de Modificaciones
@@ -35,7 +36,8 @@ export class SessionProvider {
      Copyright Iteria SAS - Colombia
      Procedimiento: Inicio de sesión de usuario
      Descripcion : Funcion valida si un usuario ha iniciado session 
-     Autor : Andres Velasco andres.velasco@iteria.com.co
+     Autor : Bairon Fernando Freire Otalvaro
+           : bairon.freire@iteria.com.co
      Fecha : 16/11/2018
      ----------------------------------------------------------------------------------
      Historia de Modificaciones
@@ -60,7 +62,8 @@ export class SessionProvider {
      Copyright Iteria SAS - Colombia
      Procedimiento: Inicio de sesión de usuario
      Descripcion : Funcion elimina la session del usuario
-     Autor : Andres Velasco andres.velasco@iteria.com.co
+     Autor : Bairon Fernando Freire Otalvaro
+           : bairon.freire@iteria.com.co
      Fecha : 16/11/2018
      ----------------------------------------------------------------------------------
      Historia de Modificaciones

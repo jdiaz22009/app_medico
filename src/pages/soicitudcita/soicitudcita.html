@@ -1,3 +1,4 @@
+
 <ion-header>
   <div class="menu">
     <ion-navbar color="sinergia">
@@ -14,6 +15,7 @@
   </div>
 </ion-header>
 
+
 <ion-content style="margin: 0px; padding: 0px;">
   <div class="div_principal">
     <div class="div-bienvenido">
@@ -25,7 +27,7 @@
         <ion-step color="sinergia_2" label="Identificación del Paciente">
           <ion-item>
             <ion-label floating>Ips*</ion-label>
-            <ion-input class="text" [(ngModel)]="ips" type="text" id="ips" value=""></ion-input>
+            <ion-input class="text" readonly aria-disabled [(ngModel)]="ips" type="text" id="ips" value=""></ion-input>
           </ion-item>
           <ion-item>
             <ion-label floating>Correo*</ion-label>
@@ -40,7 +42,7 @@
             <ion-input class="text" [(ngModel)]="celular" type="text" id="celular" value=""></ion-input>
           </ion-item>
           <ion-item text-wrap>
-            <ion-label class="text">AUTORIZÓ de manera previa, expresa, informada y explicita a CHRISTUS SINERGIA Salud para el uso y tratamiento de mis datos.</ion-label>
+            <ion-label class="text">AUTORIZO de manera previa, expresa, informada y explicita a CHRISTUS SINERGIA Salud para el uso y tratamiento de mis datos.</ion-label>
             <ion-checkbox (ionChange)="aceptaTerminos()" [(ngModel)]="terminos"></ion-checkbox>
           </ion-item>
           <button ion-button small (click)="actualizarInfo()">Siguiente</button>
@@ -50,19 +52,19 @@
           <span>{{nombreCompleto}}</span>
           <ion-item>
             <ion-label floating for="user" class="salto">Plan</ion-label>
-            <ion-select class="text" id="codPlan" [(ngModel)]="codPlan">
+            <ion-select okText="Ok" cancelText="Cancelar" class="text" id="codPlan" [(ngModel)]="codPlan">
               <ion-option *ngFor="let key of planes" value="{{ key.cod_planb }}">{{ key.desc_planb }}</ion-option>
             </ion-select>
           </ion-item>
           <ion-item>
             <ion-label floating for="user" class="salto">Departamento</ion-label>
-            <ion-select class="text" id="codDepto" [(ngModel)]="codDepto" (ionChange)="selectCiudad()">
+            <ion-select okText="Ok" cancelText="Cancelar" class="text" id="codDepto" [(ngModel)]="codDepto" (ionChange)="selectCiudad()">
               <ion-option *ngFor="let key of departamentos" value="{{ key.cod_departamento }}">{{ key.nom_departamento }}</ion-option>
             </ion-select>
           </ion-item>
           <ion-item>
             <ion-label floating for="user" class="salto">Ciudad</ion-label>
-            <ion-select class="text" id="codCiudad" [(ngModel)]="codCiudad">
+            <ion-select okText="Ok" cancelText="Cancelar" class="text" id="codCiudad" [(ngModel)]="codCiudad">
               <ion-option *ngFor="let key of ciudades" value="{{ key.cod_ciudad }}">{{ key.nom_ciudad }}</ion-option>
             </ion-select>
           </ion-item>
@@ -74,14 +76,14 @@
           <span>{{nombreCompleto}}</span>
           <ion-item>
             <ion-label floating for="user" class="salto">Servicio*</ion-label>
-            <ion-select class="text" id="codServicio" [(ngModel)]="codServicio" (ionChange)="selectServicio()">
+            <ion-select okText="Ok" cancelText="Cancelar" class="text"  id="codServicio" [(ngModel)]="codServicio" (ionChange)="selectServicio()">
               <ion-option *ngFor="let key of servicios" value="{{ key.codigoServicio }}">{{ key.descServicio }}</ion-option>
             </ion-select>
           </ion-item>
           <ion-item>
             <ion-label floating for="user" class="salto">Centro*</ion-label>
-            <ion-select class="text" id="codCentro" [(ngModel)]="codCentro">
-              <ion-option *ngFor="let key of centros" value="{{ key.cod_centro_atenci }}">{{ key.des_razon_social }}</ion-option>
+            <ion-select okText="Ok" cancelText="Cancelar" class="text" id="codCentro" [(ngModel)]="codCentro">
+              <ion-option  *ngFor="let key of centros" value="{{ key.cod_centro_atenci }}">{{ key.des_razon_social }}</ion-option>
             </ion-select>
           </ion-item>
           <ion-item>
@@ -90,7 +92,7 @@
           </ion-item>
           <ion-item>
             <ion-label floating for="user" class="salto">Jornada*</ion-label>
-            <ion-select class="text" id="jornada" [(ngModel)]="jornada">
+            <ion-select okText="Ok" cancelText="Cancelar" class="text" id="jornada" [(ngModel)]="jornada">
               <ion-option value="am">AM</ion-option>
               <ion-option value="pm">PM</ion-option>
             </ion-select>
@@ -119,7 +121,7 @@
           </ion-list>
 
           <button ion-button color="light" small ionicStepperPrevious (click)="anteriorCita()">Anterior</button>
-          <button ion-button small (click)="reiniciar()">Reinciar</button>
+          <button ion-button small (click)="reiniciar()">Reiniciar</button>
         </ion-step>
       </ion-stepper>
     </div>

@@ -1,0 +1,22 @@
+<ion-header>
+  <div class="menu">
+    <ion-navbar color="sinergia">
+      <div class="welcome-container">
+        <div class="bienvenido"><b>Home</b></div>
+      </div>
+    </ion-navbar>
+  </div>
+</ion-header>
+
+<ion-content>
+  <div class="div-bienvenido-home">
+  </div>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; margin-top: 5%;">
+    <div class="icono_1" *ngFor="let menu of menus" (click)="goTo(menu)">
+      <img [src]="menu.urlImagen" />
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <footer></footer>
+</ion-footer>
