@@ -149,6 +149,14 @@ export class SoicitudcitaPage {
           this.alert.showAlerta({ content: "El afiliado no tiene derechos." });
           return false;
         }
+        //jfcr9656 si el ws devuelve mensaje de error
+        if(data.mensaje){
+          if(!data.indProceso){
+            showLoading.dismiss();
+            this.alert.showAlerta({ content: "El afiliado no tiene derechos." });
+            return false;
+          }
+        }
         let arrServicio: any = [];
         if (!Array.isArray(data)) {
           arrServicio = data.servicios;
@@ -433,11 +441,11 @@ export class SoicitudcitaPage {
     const resultado = this.servicios.find(servicio => servicio.codigoServicio == this.codServicio);
     const procedimientos = resultado.procedimiento;
     let codAfi = "";
-    if(this.codPlan == "1"){
+    if(this.codPlan == "2"){
+      codAfi = this.datosAfiliado.codAfiliado;
+   }else{
        codAfi = this.datosAfiliado.codPaciente;
-    }else if(this.codPlan == "2"){
-       codAfi = this.datosAfiliado.codAfiliado;
-    }
+    } 
     let dataJson = {
       "function": "consultarCuposDisponibles",
       "codAfiPac": codAfi,
@@ -455,33 +463,38 @@ export class SoicitudcitaPage {
       success: res => {
         showLoading.dismiss();
         this.msg = "";
-
         if (res.cupos == null || res.cupos.length == 0) {
           this.trazaSinCupo(dataJson);
           this.alert.showAlerta({ content: "No hay cupos disponible." });
+        } 
+        //jfcr9656 Verifica el tag si es permitido la consulta
+        else if (res.indFecNoPermitida == 1){
+          this.liberarCupos();
+          this.stepper.setStep(2);
+          showLoading.dismiss(); 
+          this.alert.showAlerta({ content: "La fecha deseada no es permitida por el sistema, debe seleccionar una fecha mas reciente." });
+        }else{
+            this.startTimer();
+            this.cupos = res.cupos;
+            this.stepper.selectedIndex = 3;
 
-        } else {
-          this.startTimer();
-          this.cupos = res.cupos;
-          this.stepper.selectedIndex = 3;
+            let flagOne: Boolean = false;
+            let flagTwo: Boolean = false;
+            let flagThree: Boolean = false;
 
-          let flagOne: Boolean = false;
-          let flagTwo: Boolean = false;
-          let flagThree: Boolean = false;
+            let centro = this.centros.find(centro => centro.cod_centro_atenci == this.codCentro);
+            let servicio = this.servicios.find(servicio => servicio.codigoServicio == this.codServicio);
+            let ciudad = this.ciudades.find(ciudad => ciudad.cod_ciudad == this.codCiudad);
 
-          let centro = this.centros.find(centro => centro.cod_centro_atenci == this.codCentro);
-          let servicio = this.servicios.find(servicio => servicio.codigoServicio == this.codServicio);
-          let ciudad = this.ciudades.find(ciudad => ciudad.cod_ciudad == this.codCiudad);
-
-          if ((this.cupos[0].codCentroAtenci != this.codCentro) && (this.fechaD == this.utilityProvider.formatoReverse(this.cupos[0].fecha_cita, "/", "-"))) {
-            this.msg = "Apreciado Paciente, en la unidad de atención " + centro.des_razon_social + " no se encontraron citas para el servicio " + servicio.descServicio + ", por lo cual en la siguiente pantalla visualizará las citas disponibles que se encontraron en la ciudad de " + ciudad.nom_ciudad;
-          } else
-            if ((this.cupos[0].codCentroAtenci != this.codCentro) && (this.fechaD != this.utilityProvider.formatoReverse(this.cupos[0].fecha_cita, "/", "-"))) {
-              this.msg = "Apreciado Paciente, en la unidad de atención " + centro.des_razon_social + " no se encontraron citas para el servicio " + servicio.descServicio + ", por lo cual en la siguiente pantalla visualizará las citas disponibles que se encontraron en la ciudad de " + ciudad.nom_ciudad + ", así mismo le informamos que en la fecha " + this.fechaD + " no se encontraron citas por lo cual se mostrará las citas más cercanas a la fecha deseada por usted";
+            if ((this.cupos[0].codCentroAtenci != this.codCentro) && (this.fechaD == this.utilityProvider.formatoReverse(this.cupos[0].fecha_cita, "/", "-"))) {
+              this.msg = "Apreciado Paciente, en la unidad de atención " + centro.des_razon_social + " no se encontraron citas para el servicio " + servicio.descServicio + ", por lo cual en la siguiente pantalla visualizará las citas disponibles que se encontraron en la ciudad de " + ciudad.nom_ciudad;
             } else
-              if ((this.cupos[0].codCentroAtenci == this.codCentro) && (this.fechaD != this.utilityProvider.formatoReverse(this.cupos[0].fecha_cita, "/", "-"))) {
-                this.msg = "Apreciado Paciente, en la fecha " + this.fechaD + " no se encontraron citas por lo cual el sistema le mostrará las citas más cercanas a la fecha deseada por usted";
-              }
+              if ((this.cupos[0].codCentroAtenci != this.codCentro) && (this.fechaD != this.utilityProvider.formatoReverse(this.cupos[0].fecha_cita, "/", "-"))) {
+                this.msg = "Apreciado Paciente, en la unidad de atención " + centro.des_razon_social + " no se encontraron citas para el servicio " + servicio.descServicio + ", por lo cual en la siguiente pantalla visualizará las citas disponibles que se encontraron en la ciudad de " + ciudad.nom_ciudad + ", así mismo le informamos que en la fecha " + this.fechaD + " no se encontraron citas por lo cual se mostrará las citas más cercanas a la fecha deseada por usted";
+              } else
+                if ((this.cupos[0].codCentroAtenci == this.codCentro) && (this.fechaD != this.utilityProvider.formatoReverse(this.cupos[0].fecha_cita, "/", "-"))) {
+                  this.msg = "Apreciado Paciente, en la fecha " + this.fechaD + " no se encontraron citas por lo cual el sistema le mostrará las citas más cercanas a la fecha deseada por usted";
+                }
 
 
         }
@@ -607,7 +620,7 @@ export class SoicitudcitaPage {
           let mes = this.traducirMesEspanol(this.datePipe.transform(this.fechaD, "MM"));
           let anio = this.datePipe.transform(this.fechaD, "yyyy");
           showLoading.dismiss();
-          let msg = 'El <b>' + this.datePipe.transform(this.fechaD, "dd") + "-" + this.datePipe.transform(this.fechaD, "MM") + "-" +this.datePipe.transform(this.fechaD, "yyyy") +'</b> a las <b>' + item.hora_cita + '</b> con el profesional <b>' + item.desMedico + '</b> en la unidad básica de atención: <b>' + item.desCentroAtenci + '</b> con dirección <b>' + dataR.cita.dirCentro + '</b> con su cuota moderadora para la atención corresponde a: <b>$' + dataR.cita.vlrCita + '.</br>Al correo <b>' + this.datosAfiliado.Emailenvio + '</b> recibirá el detalle de la información de la cita asignada.';
+          let msg = 'El <b>' + this.datePipe.transform(dataR.cita.fecha_cita, "dd") + "-" + this.datePipe.transform(dataR.cita.fecha_cita, "MM") + "-" +this.datePipe.transform(dataR.cita.fecha_cita, "yyyy") +'</b> a las <b>' + item.hora_cita + '</b> con el profesional <b>' + item.desMedico + '</b> en la unidad básica de atención: <b>' + item.desCentroAtenci + '</b> con dirección <b>' + dataR.cita.dirCentro + '</b> con su cuota moderadora para la atención corresponde a: <b>$' + dataR.cita.vlrCita + '.</br>Al correo <b>' + this.datosAfiliado.Emailenvio + '</b> recibirá el detalle de la información de la cita asignada.';
           let alert = this.alertCtrl.create({
             title: 'Cita Asignada',
             cssClass: "classConfirmacion",
