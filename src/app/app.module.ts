@@ -27,6 +27,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { HttpProvider } from '../shared/http/http';
 import { HTTP } from '@ionic-native/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 
@@ -49,7 +50,8 @@ import { File } from '@ionic-native/file';
     }),
     HttpModule,
     IonicStorageModule.forRoot(),
-    IonicStepperModule
+    IonicStepperModule,
+    HttpClientModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [IonicApp],

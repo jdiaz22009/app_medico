@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HTTP } from '@ionic-native/http';
+//import { HTTP } from '@ionic-native/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { File } from '@ionic-native/file';
 import { FileTransferObject, FileTransfer } from '@ionic-native/file-transfer';
@@ -18,7 +19,7 @@ import { Platform } from 'ionic-angular';
 export class HttpProvider {
 
   constructor(
-    private http: HTTP,
+    private http: HttpClient,
     private transfer: FileTransfer,
     private file: File,
     private platform: Platform,
@@ -31,7 +32,7 @@ export class HttpProvider {
   public get(url: string, httpRequestHandler: HttpRequestHandler, token?: string) {
     this.setHandlerDefaults(httpRequestHandler);
     const headers = this.getHeaders(httpRequestHandler, token);
-    this.handleResponse(Observable.fromPromise(this.http.get(url, {}, headers)), httpRequestHandler);
+    this.handleResponse(this.http.get(url), httpRequestHandler);
   }
 
   /**
@@ -40,8 +41,7 @@ export class HttpProvider {
   public post(url: string, data: any, httpRequestHandler: HttpRequestHandler) {
     this.setHandlerDefaults(httpRequestHandler);
     const headers = this.getHeaders(httpRequestHandler);
-    this.http.setDataSerializer('json');
-    this.handleResponse(Observable.fromPromise(this.http.post(url, data, headers)), httpRequestHandler);
+    this.handleResponse(this.http.post(url, data, headers), httpRequestHandler);
   }
 
   /**
@@ -50,7 +50,7 @@ export class HttpProvider {
   public delete(url: string, httpRequestHandler: HttpRequestHandler) {
     this.setHandlerDefaults(httpRequestHandler);
     const headers = this.getHeaders(httpRequestHandler);
-    this.handleResponse(Observable.fromPromise(this.http.delete(url, {}, headers)), httpRequestHandler);
+    this.handleResponse(this.http.delete(url, headers), httpRequestHandler);
   }
 
   /**
@@ -59,7 +59,7 @@ export class HttpProvider {
   public put(url: string, data: any, httpRequestHandler: HttpRequestHandler) {
     this.setHandlerDefaults(httpRequestHandler);
     const headers = this.getHeaders(httpRequestHandler);
-    this.handleResponse(Observable.fromPromise(this.http.put(url, {}, headers)), httpRequestHandler);
+    this.handleResponse(this.http.put(url, {}, headers), httpRequestHandler);
   }
 
   public download(url: string, filename: string) {
@@ -101,7 +101,7 @@ export class HttpProvider {
         res => {
           if (httpRequestHandler.success) {
             try {
-              httpRequestHandler.success(JSON.parse(res.data));
+              httpRequestHandler.success(res);
             } catch (e) {
               httpRequestHandler.success(res);
             }
