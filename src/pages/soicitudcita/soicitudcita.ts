@@ -262,7 +262,7 @@ export class SoicitudcitaPage {
     this.codCentro = "";
     const resultado = this.servicios.find(servicio => servicio.codigoServicio == this.codServicio);
     this.centros = this.json2array(resultado.centros);
-    if(this.codPlan == "1"){
+    if(this.codPlan != "2"){
       this.codContrato = resultado.codContrato;
    }
     
@@ -595,7 +595,7 @@ export class SoicitudcitaPage {
     // const resultado = this.servicios.find(servicio => servicio.codigoServicio == this.codServicio);
     //    const procedimientos = resultado.procedimiento;
     let codC = "";
-    if(this.codPlan == "1"){
+    if(this.codPlan != "2"){
       codC = this.codContrato;
    }
 
@@ -611,16 +611,17 @@ export class SoicitudcitaPage {
       "codContrato": codC
     };
 
+    console.log(data);
     this.generalProvider.webServicesWithUsuario(data, {
       success: dataR => {
         let mensaje = dataR.mensaje;
         let arrMensaje = mensaje.split(":");
         if (dataR.indProceso) {
-          let dia = this.datePipe.transform(this.fechaD, "dd");
-          let mes = this.traducirMesEspanol(this.datePipe.transform(this.fechaD, "MM"));
-          let anio = this.datePipe.transform(this.fechaD, "yyyy");
+          let dia = this.datePipe.transform(dataR.cita.fecha_cita.substr(0,10), "dd");
+          let mes = this.datePipe.transform(dataR.cita.fecha_cita.substr(0,10), "MM");
+          let anio = this.datePipe.transform(dataR.cita.fecha_cita.substr(0,10), "yyyy");
           showLoading.dismiss();
-          let msg = 'El <b>' + this.datePipe.transform(dataR.cita.fecha_cita, "dd") + "-" + this.datePipe.transform(dataR.cita.fecha_cita, "MM") + "-" +this.datePipe.transform(dataR.cita.fecha_cita, "yyyy") +'</b> a las <b>' + item.hora_cita + '</b> con el profesional <b>' + item.desMedico + '</b> en la unidad básica de atención: <b>' + item.desCentroAtenci + '</b> con dirección <b>' + dataR.cita.dirCentro + '</b> con su cuota moderadora para la atención corresponde a: <b>$' + dataR.cita.vlrCita + '.</br>Al correo <b>' + this.datosAfiliado.Emailenvio + '</b> recibirá el detalle de la información de la cita asignada.';
+          let msg = 'El <b>' + dia + "-" + mes + "-" + anio +'</b> a las <b>' + item.hora_cita + '</b> con el profesional <b>' + item.desMedico + '</b> en la unidad básica de atención: <b>' + item.desCentroAtenci + '</b> con dirección <b>' + dataR.cita.dirCentro + '</b> con su cuota moderadora para la atención corresponde a: <b>$' + dataR.cita.vlrCita + '.</br>Al correo <b>' + this.datosAfiliado.Emailenvio + '</b> recibirá el detalle de la información de la cita asignada.';
           let alert = this.alertCtrl.create({
             title: 'Cita Asignada',
             cssClass: "classConfirmacion",

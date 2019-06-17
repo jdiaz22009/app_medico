@@ -280,3 +280,5 @@ ion-navbar, .menu {
 .menu-inner{
     width: 60% !important;
 }
+
+ion-app.platform-ios12 ion-content { pointer-events: auto; }
