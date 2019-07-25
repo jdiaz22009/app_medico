@@ -28,7 +28,7 @@
           <ion-row>
             <ion-col>
               <ion-slides #carousel>
-                <ion-slide *ngFor="let imagen of imgs">
+                <ion-slide *ngFor="let imagen of imgs" (click)="abrirLink(imagen)">
                   <img src="{{imagen.nombre}}" id="{{imagen.id}}" />
                 </ion-slide>
               </ion-slides>

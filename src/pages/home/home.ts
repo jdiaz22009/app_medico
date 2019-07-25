@@ -20,12 +20,19 @@ export class HomePage {
   imgs: any = [
     {
       nombre: '../../assets/img/noticias/noticia_01.jpg',
+      url:"servicios-especiales/",
     },
     {
       nombre: "../../assets/img/noticias/noticia_02.jpg",
+      url:"wp-content/uploads/2019/06/DIRECTORIO_MEDICOS-ESPECIALISTAS.pdf",
     },
     {
       nombre: "../../assets/img/noticias/noticia_03.jpg",
+      url:"laboratorio-clinico/",
+    },
+    {
+      nombre: "../../assets/img/noticias/noticia_04.jpg",
+      url:"imagenologia/",
     }
   ];
 
@@ -120,6 +127,11 @@ export class HomePage {
         showLoading.dismiss();
       }, 1000);
     });
+  }
 
+  //Funcion que permite abrir links de los banners
+  abrirLink(urlImag: any){
+    let urlCompleta = 'https://christussinergia.com/'+urlImag.url;
+    window.open(urlCompleta, '_system', 'location=yes');
   }
 }
